@@ -20,7 +20,7 @@
 // }
 
 const input_checkbox_list = [...document.querySelectorAll('input[type=checkbox]')];
-const h4_amenities = document.querySelector('h4');
+const h4_amenities = [...document.querySelectorAll('h4')];
 
 check_amenities = []
 check_names = []
@@ -33,8 +33,9 @@ input_checkbox_list.forEach(($check) => {
             check_names.forEach((check_name) => {
                 text_names = text_names + check_name
             })
-            h4_amenities.text = text_names
+            h4_amenities[1].textContent = text_names
             console.log(check_amenities)
+            console.log(text_names)
         }
         else {
             const id = check_amenities.indexOf($check.getAttribute('data-id'))
@@ -45,8 +46,9 @@ input_checkbox_list.forEach(($check) => {
             check_names.forEach((check_name) => {
                 text_names = text_names + check_name
             })
-            h4_amenities.text = text_names
+            h4_amenities[1].textContent = text_names
             console.log(check_amenities)
+            console.log(text_names)
         }
     })
 })
