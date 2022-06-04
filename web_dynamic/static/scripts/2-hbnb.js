@@ -31,3 +31,11 @@ input_checkbox_list.forEach(($check) => {
         }
     })
 })
+
+async function api_status () {
+    const response = await fetch('http://0.0.0.0:5001/api/v1/status/');
+    const flag = await response.json();
+    console.log(flag["status"])
+}
+
+api_status()
