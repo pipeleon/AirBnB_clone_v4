@@ -104,7 +104,7 @@ locations_checkbox_list.forEach(($check) => {
 })
 
 
-async function get_places (info = {}) {
+async function get_places(info = {}) {
     const response = await fetch('http://localhost:5001/api/v1/places_search/', {
         method: 'POST',
         headers: {
@@ -173,30 +173,38 @@ async function get_places (info = {}) {
         })
         const reviews = document.createElement('div')
         reviews.className = "reviews"
-        const response3 = await fetch(`http://localhost:5001/api/v1/places/${place.id}/reviews`)
-        const list_reviews = await response3.json()
         const title_review = document.createElement('h2')
+        title_review.textContent = "Reviews"
         const button_hide = document.createElement('span')
         button_hide.textContent = "show"
-        title_review.textContent = `${list_reviews.length} Reviews`
-        const ul_review = document.createElement('ul')
-        list_reviews.forEach((review) => {
-            const li_element = document.createElement('li')
-            const title = document.createElement('h3')
-            const text = document.createElement('p')
-            title.textContent = `Posted on ${review.created_at.slice(0, 10)}`
-            text.innerHTML = review.text
-            li_element.appendChild(title)
-            li_element.appendChild(text)
-            ul_review.appendChild(li_element)
+        button_hide.addEventListener("click", () => {
+            console.log("Button works")
         })
-        reviews.appendChild(title_review)
+        if (button_hide.textContent == "hide") {
+            const response3 = await fetch(`http://localhost:5001/api/v1/places/${place.id}/reviews`)
+            const list_reviews = await response3.json()
+            title_review.textContent = `${list_reviews.length} Reviews`
+            const ul_review = document.createElement('ul')
+            list_reviews.forEach((review) => {
+                const li_element = document.createElement('li')
+                const title = document.createElement('h3')
+                const text = document.createElement('p')
+                title.textContent = `Posted on ${review.created_at.slice(0, 10)}`
+                text.innerHTML = review.text
+                li_element.appendChild(title)
+                li_element.appendChild(text)
+                ul_review.appendChild(li_element)
+            })
+            reviews.appendChild(title_review)
+            reviews.appendChild(ul_review)
+        } else {
+            reviews.textContent = ""
+            reviews.appendChild(title_review)
+        }
         reviews.appendChild(button_hide)
-        reviews.appendChild(ul_review)
-
+        place_amenities.appendChild(reviews)
         place_amenities.appendChild(title_amenity)
         place_amenities.appendChild(ul_amenity)
-        place_amenities.appendChild(reviews)
         art.appendChild(place_amenities)
         places_section.appendChild(art)
     })
@@ -204,7 +212,7 @@ async function get_places (info = {}) {
 
 get_places()
 
-async function api_status () {
+async function api_status() {
     const response = await fetch('http://localhost:5001/api/v1/status/');
     const flag = await response.json();
     if (flag["status"] == "OK") {
@@ -215,7 +223,7 @@ async function api_status () {
 api_status()
 
 button.addEventListener('click', async () => {
-    info = {"states": check_states, "cities": check_cities, "amenities": check_amenities}
+    info = { "states": check_states, "cities": check_cities, "amenities": check_amenities }
     places_section.innerHTML = ""
     get_places(info)
 })
