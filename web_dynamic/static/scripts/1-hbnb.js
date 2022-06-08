@@ -1,43 +1,42 @@
-const input_checkbox_list = [...document.querySelectorAll('input[type=checkbox]')];
-const h4_amenities = [...document.querySelectorAll('h4')];
+const inputCheckboxList = [...document.querySelectorAll('input[type=checkbox]')];
+const h4Amenities = [...document.querySelectorAll('h4')];
+const checkAmenities = [];
+const checkNames = [];
 
-check_amenities = []
-check_names = []
-input_checkbox_list.forEach(($check) => {
-    $check.addEventListener('change', () => {
-        if ($check.checked) {
-            check_amenities.push(($check.getAttribute('data-id')).slice(1))
-            check_names.push(($check.getAttribute('data-name')).slice(1))
-            text_names = ""
-            counter = 1
-            check_names.forEach((check_name) => {
-                text_names = text_names + check_name
-                if (counter != check_names.length) {
-                    text_names = text_names + ", "
-                }
-                counter++
-            })
-            h4_amenities[1].textContent = text_names
-            console.log(check_amenities)
-            console.log(text_names)
+inputCheckboxList.forEach(($check) => {
+  $check.addEventListener('change', () => {
+    if ($check.checked) {
+      checkAmenities.push(($check.getAttribute('data-id')).slice(1));
+      checkNames.push(($check.getAttribute('data-name')).slice(1));
+      let textNames = '';
+      let counter = 1;
+      checkNames.forEach((checkName) => {
+        textNames = textNames + checkName;
+        if (counter !== checkNames.length) {
+          textNames = textNames + ', ';
         }
-        else {
-            const id = check_amenities.indexOf($check.getAttribute('data-id'))
-            check_amenities.splice(id, 1)
-            const id2 = check_names.indexOf($check.getAttribute('data-name'))
-            check_names.splice(id2, 1)
-            text_names = ""
-            counter = 1
-            check_names.forEach((check_name) => {
-                text_names = text_names + check_name
-                if (counter != check_names.length) {
-                    text_names = text_names + ", "
-                }
-                counter++
-            })
-            h4_amenities[1].textContent = text_names
-            console.log(check_amenities)
-            console.log(text_names)
+        counter++;
+      });
+      h4Amenities[1].textContent = textNames;
+      console.log(checkAmenities);
+      console.log(textNames);
+    } else {
+      const id = checkAmenities.indexOf($check.getAttribute('data-id').slice(1));
+      checkAmenities.splice(id, 1);
+      const id2 = checkNames.indexOf($check.getAttribute('data-name').slice(1));
+      checkNames.splice(id2, 1);
+      let textNames = '';
+      let counter = 1;
+      checkNames.forEach((checkName) => {
+        textNames = textNames + checkName;
+        if (counter !== checkNames.length) {
+          textNames = textNames + ', ';
         }
-    })
-})
+        counter++;
+      });
+      h4Amenities[1].textContent = textNames;
+      console.log(checkAmenities);
+      console.log(textNames);
+    }
+  });
+});
